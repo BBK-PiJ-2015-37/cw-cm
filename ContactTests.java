@@ -58,11 +58,11 @@ public class ContactTests {
 	@Test
 	public void testsGetNameWithFullConstructorAndEmptyName() {
 		c1 = new ContactImpl(1, "", "Likes cats");
-		assertEquals("John", c1.getName());
+		assertEquals("", c1.getName());
 	}
 	
 	@Test
-	public void testsGetNameWithRestrictedConstructorAndEmptyNamr() {
+	public void testsGetNameWithRestrictedConstructorAndEmptyName() {
 		c1 = new ContactImpl(1, "");
 		assertEquals("", c1.getName());
 	}
