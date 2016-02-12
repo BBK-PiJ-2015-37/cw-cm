@@ -52,7 +52,7 @@ public class ContactImpl implements Contact {
 	 * @see Contact
 	 */
 	public int getId() {
-		return -999;
+		return this.id;
 	}
 	
 	@Override
@@ -60,7 +60,7 @@ public class ContactImpl implements Contact {
 	 * @see Contact
 	 */
 	public String getName() {
-		return null;
+		return this.name;
 	}
 	
 	@Override
@@ -68,6 +68,6 @@ public class ContactImpl implements Contact {
 	 * @see Contact
 	 */
 	public String getNotes() {
-		return null;
+		return this.notes;
 	}
 }
