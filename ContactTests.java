@@ -1,6 +1,7 @@
 import org.junit.Test;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertEquals;
 
 public class ContactTests {
 	private Contact c1;
@@ -28,5 +29,59 @@ public class ContactTests {
 	@Test (expected = NullPointerException.class)
 	public void testsNullNotesThrowsExceptionForFullConstructor() {
 		c1 = new ContactImpl(1, "John", null);
+	}
+	
+	@Test
+	public void testsGetIdWithFullConstructor() {
+		c1 = new ContactImpl(1, "John", "Likes cats");
+		assertEquals(1, c1.getId());
+	}
+	
+	@Test
+	public void testsGetIdWithRestrictedConstructor() {
+		c1 = new ContactImpl(1, "John");
+		assertEquals(1, c1.getId());
+	}
+	
+	@Test
+	public void testsGetNameWithFullConstructor() {
+		c1 = new ContactImpl(1, "John", "Likes cats");
+		assertEquals("John", c1.getName());
+	}
+	
+	@Test
+	public void testsGetNameWithRestrictedConstructor() {
+		c1 = new ContactImpl(1, "John");
+		assertEquals("John", c1.getName());
+	}
+	
+	@Test
+	public void testsGetNameWithFullConstructorAndEmptyName() {
+		c1 = new ContactImpl(1, "", "Likes cats");
+		assertEquals("John", c1.getName());
+	}
+	
+	@Test
+	public void testsGetNameWithRestrictedConstructorAndEmptyNamr() {
+		c1 = new ContactImpl(1, "");
+		assertEquals("", c1.getName());
+	}
+	
+	@Test
+	public void testsGetNotesWithFullConstructor() {
+		c1 = new ContactImpl(1, "John", "Likes cats");
+		assertEquals("Likes cats", c1.getNotes());
+	}
+	
+	@Test
+	public void testsGetNotesWithRestrictedConstructor() {
+		c1 = new ContactImpl(1, "John");
+		assertEquals("", c1.getNotes());
+	}
+	
+	@Test
+	public void testsGetNotesWithFullConstructorAndEmptyNotes() {
+		c1 = new ContactImpl(1, "John", "");
+		assertEquals("", c1.getNotes());
 	}
 }
