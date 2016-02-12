@@ -84,4 +84,25 @@ public class ContactTests {
 		c1 = new ContactImpl(1, "John", "");
 		assertEquals("", c1.getNotes());
 	}
+	
+	@Test
+	public void testsAddNotesToEmptyNotesWithFullConstructor() {
+		c1 = new ContactImpl(1, "John", "");
+		c1.addNotes("Likes cats");
+		assertEquals("Likes cats", c1.getNotes());
+	}
+	
+	@Test
+	public void testsAddNotesToEmptyNotesWithRestrictedConstructor() {
+		c1 = new ContactImpl(1, "John");
+		c1.addNotes("Likes cats");
+		assertEquals("Likes cats", c1.getNotes());
+	}
+	
+	@Test
+	public void testsAddNotesToNonEmptyNotes() {
+		c1 = new ContactImpl(1, "John", "Likes cats");
+		c1.addNotes("Hates dogs");
+		assertEquals("Likes cats\nHates dogs", c1.getNotes());
+	}
 }
