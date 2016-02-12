@@ -70,4 +70,12 @@ public class ContactImpl implements Contact {
 	public String getNotes() {
 		return this.notes;
 	}
+	
+	@Override
+	/**
+	 * @see Contact
+	 */
+	public void addNotes(String note) {
+		return;
+	}
 }
