@@ -76,6 +76,10 @@ public class ContactImpl implements Contact {
 	 * @see Contact
 	 */
 	public void addNotes(String note) {
-		return;
+		if (getNotes().equals("")) {
+			this.notes = note;
+		} else {
+			this.notes = this.notes.concat("\n" + note);
+		}
 	}
 }
