@@ -20,4 +20,28 @@ public abstract class MeetingImpl implements Meeting {
 		this.date = date;
 		this.attendees = attendees;
 	}
+	
+	@Override
+	/**
+	 * @see Meeting
+	 */
+	public int getId(){
+		return -999;
+	}
+	
+	@Override
+	/**
+	 * @see Meeting
+	 */
+	public Calendar getDate() {
+		return null;
+	}
+	
+	@Override
+	/**
+	 * @see Meeting
+	 */
+	public Set<Contact> getContacts() {
+		return null;
+	}
 }
