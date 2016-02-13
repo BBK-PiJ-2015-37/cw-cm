@@ -6,6 +6,17 @@ public abstract class MeetingImpl implements Meeting {
 	private Calendar date;
 	private Set<Contact> attendees;
 	
+	/**
+	 * Constructs meeting with id, date and a set of attendees.
+	 *
+	 * @param id Meeting's ID number
+	 * @param date Date of meeting
+	 * @param attendees Set of meeting's attendees
+	 *
+	 * @throws IllegalArgumentException if id is negative or zero
+	 *		   or if the set of attendees is empty
+	 * @throws NullPointerException if date or set of attendees is null
+	 */
 	public MeetingImpl(int id, Calendar date, Set<Contact> attendees) {
 		if (id <= 0) {
 			throw new IllegalArgumentException("ID must be positive and non-zero");
@@ -26,7 +37,7 @@ public abstract class MeetingImpl implements Meeting {
 	 * @see Meeting
 	 */
 	public int getId(){
-		return -999;
+		return this.id;
 	}
 	
 	@Override
@@ -34,7 +45,7 @@ public abstract class MeetingImpl implements Meeting {
 	 * @see Meeting
 	 */
 	public Calendar getDate() {
-		return null;
+		return this.date;
 	}
 	
 	@Override
@@ -42,6 +53,6 @@ public abstract class MeetingImpl implements Meeting {
 	 * @see Meeting
 	 */
 	public Set<Contact> getContacts() {
-		return null;
+		return this.attendees;
 	}
 }
