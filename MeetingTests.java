@@ -5,6 +5,8 @@ import java.util.Set;
 import org.junit.Test;
 import org.junit.Before;
 
+import static org.junit.Assert.assertEquals;
+
 public class MeetingTests {
 	private Meeting m1;
 	private Set<Contact> attendees;
@@ -44,5 +46,35 @@ public class MeetingTests {
 	public void testsNullContactSetThrowsException() {
 		attendees = null;
 		m1 = new MockMeeting(1, date, attendees);
+	}
+	
+	@Test
+	public void testsGetId() {
+		attendees.add(c1);
+		attendees.add(c2);
+		m1 = new MockMeeting(115, date, attendees);
+		assertEquals(115, m1.getId());
+	}
+	
+	@Test
+	public void testsGetDate() {
+		attendees.add(c1);
+		attendees.add(c2);
+		m1 = new MockMeeting(115, date, attendees);
+		Calendar expected = new GregorianCalendar(2016, 2, 13);
+		assertEquals(expected, m1.getDate());
+	}
+	
+	@Test
+	public void testsGetContacts() {
+		attendees.add(c1);
+		attendees.add(c2);
+		attendees.add(c3);
+		m1 = new MockMeeting(115, date, attendees);
+		Set<Contact> expected = new HashSet<>();
+		expected.add(c1);
+		expected.add(c2);
+		expected.add(c3);
+		assertEquals(expected, m1.getContacts());
 	}
 }
