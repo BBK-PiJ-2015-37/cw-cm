@@ -5,8 +5,10 @@ import java.util.Set;
 import org.junit.Test;
 import org.junit.Before;
 
+import static org.junit.Assert.assertEquals;
+
 public class PastMeetingTests {
-	private Meeting m1;
+	private PastMeeting m1;
 	private Set<Contact> attendees;
 	private Contact c1;
 	private Contact c2;
@@ -52,5 +54,22 @@ public class PastMeetingTests {
 		attendees.add(c2);
 		notes = null;
 		m1 = new PastMeetingImpl(1, date, attendees, notes);
+	}
+	
+	@Test
+	public void testsGetNotesWithNonEmptyNotesString() {
+		attendees.add(c1);
+		attendees.add(c2);
+		m1 = new PastMeetingImpl(1, date, attendees, notes);
+		assertEquals("Good meeting", m1.getNotes());
+	}
+	
+	@Test
+	public void testsGetNotesWithEmptyNotesString() {
+		attendees.add(c1);
+		attendees.add(c2);
+		notes = "";
+		m1 = new PastMeetingImpl(1, date, attendees, notes);
+		assertEquals("", m1.getNotes());
 	}
 }
