@@ -30,6 +30,6 @@ public class PastMeetingImpl extends MeetingImpl implements PastMeeting {
 	 * @see PastMeeting
 	 */
 	public String getNotes() {
-		return null;
+		return this.notes;
 	}
 }
