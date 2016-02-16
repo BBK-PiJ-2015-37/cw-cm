@@ -24,4 +24,12 @@ public class PastMeetingImpl extends MeetingImpl implements PastMeeting {
 		}
 		this.notes = notes;
 	}
+	
+	@Override
+	/*
+	 * @see PastMeeting
+	 */
+	public String getNotes() {
+		return null;
+	}
 }
