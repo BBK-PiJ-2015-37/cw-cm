@@ -48,6 +48,8 @@ public class PastMeetingTests {
 	
 	@Test (expected = NullPointerException.class)
 	public void testsNullNotesStringThrowsException() {
+		attendees.add(c1);
+		attendees.add(c2);
 		notes = null;
 		m1 = new PastMeetingImpl(1, date, attendees, notes);
 	}
