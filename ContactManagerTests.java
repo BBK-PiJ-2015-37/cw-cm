@@ -34,4 +34,23 @@ public class ContactManagerTests {
 		assertEquals(5, outcome);
 	}
 	
+	@Test (expected = IllegalArgumentException.class)
+	public void testsAddNewContactWithEmptyNameThrowsException() {
+		cm.addNewContact("", "Likes cats");
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testsAddNewContactWithEmptyNotesThrowsException() {
+		cm.addNewContact("John", "");
+	}
+	
+	@Test (expected = NullPointerException.class)
+	public void testsAddNewContactWithNullNameThrowsException() {
+		cm.addNewContact(null, "Likes cats");
+	}
+	
+	@Test (expected = NullPointerException.class)
+	public void testsAddNewContactWithNullNotesThrowsException() {
+		cm.addNewContact("John", null);
+	}
 }
