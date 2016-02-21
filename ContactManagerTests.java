@@ -98,7 +98,6 @@ public class ContactManagerTests {
 		cm.addNewContact("Derek", "Never wears a tie");
 		Set<Contact> output = cm.getContacts("John");
 		assertTrue(output.size() == 1);
-		assertTrue(output.contains("John"));
 	}
 	
 	@Test
@@ -108,7 +107,6 @@ public class ContactManagerTests {
 		cm.addNewContact("Derek", "Never wears a tie");
 		Set<Contact> output = cm.getContacts("John");
 		assertTrue(output.size() == 2);
-		assertTrue(output.contains("John"));
 	}
 	
 	@Test
@@ -118,6 +116,5 @@ public class ContactManagerTests {
 		cm.addNewContact("Derek", "Never wears a tie");
 		Set<Contact> output = cm.getContacts("John");
 		assertTrue(output.size() == 1);
-		assertTrue(output.contains("John"));
 	}
 }
