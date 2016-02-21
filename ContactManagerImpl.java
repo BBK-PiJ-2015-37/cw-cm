@@ -25,4 +25,11 @@ public class ContactManagerImpl implements ContactManager {
 		contactList.add(newContact);
 		return newContactId;
 	}
+	
+	/**
+	 * @see ContactManager
+	 */
+	public Set<Contact> getContacts(String name) {
+		return null;
+	}
 }
