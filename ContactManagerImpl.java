@@ -10,6 +10,7 @@ public class ContactManagerImpl implements ContactManager {
 		contactList = new HashSet<>();
 	}
 	
+	@Override
 	/**
 	 * @see ContactManager
 	 */
@@ -26,10 +27,24 @@ public class ContactManagerImpl implements ContactManager {
 		return newContactId;
 	}
 	
+	@Override
 	/**
 	 * @see ContactManager
 	 */
 	public Set<Contact> getContacts(String name) {
-		return null;
+		if (name.equals(null)) {
+			throw new NullPointerException("Null parameters not permitted");
+		}
+		if (name.equals("")) {
+			return this.contactList;
+		} else {
+			Set<Contact> result = new HashSet<>();
+			for (Contact c : this.contactList) {
+				if (c.getName().contains(name)) {
+					result.add(c);
+				}
+			}
+			return result;
+		}
 	}
 }
