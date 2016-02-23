@@ -53,6 +53,21 @@ public class ContactManagerImpl implements ContactManager {
 	 * @see ContactManager
 	 */
 	public Set<Contact> getContacts(int... ids) {
-		return null;
+		if (ids.length == 0) {
+			throw new IllegalArgumentException("Enter at least one Contact ID");
+		}
+		Set<Contact> result = new HashSet<>();
+		for (int id : ids) {
+			if (id < 1 || id > this.contactList.size()) {
+				throw new IllegalArgumentException(id + " is not a known Contact ID");
+			}
+			for (Contact c : this.contactList) {
+				if (c.getId() == id) {
+					result.add(c);
+				}
+			}
+		}
+		return result;
+		
 	}
 }
