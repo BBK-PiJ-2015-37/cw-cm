@@ -132,6 +132,12 @@ public class ContactManagerTests {
 	}
 	
 	@Test (expected = IllegalArgumentException.class)
+	public void testsGetContactsWithNegativeIdThrowsException() {
+		cm.addNewContact("John", "Likes cats");
+		cm.getContacts(-2);
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
 	public void testsGetContactsWithUnknownIdAndEmptyContactSetThrowsException() {
 		cm.getContacts(1);
 	}
