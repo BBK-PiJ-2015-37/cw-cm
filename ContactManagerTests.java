@@ -135,4 +135,59 @@ public class ContactManagerTests {
 	public void testsGetContactsWithUnknownIdAndEmptyContactSetThrowsException() {
 		cm.getContacts(1);
 	}
+	
+	@Test
+	public void testsGetContactsWithOneIdAndOneItemInContactSet() {
+		cm.addNewContact("John", "Likes cats");
+		Set<Contact> output = cm.getContacts(1);
+		assertTrue(output.size() == 1);
+	}
+	
+	@Test
+	public void testsGetContactsWithTwoIdsAndTwoItemsInContactSet() {
+		cm.addNewContact("John", "Likes cats");
+		cm.addNewContact("Carol", "Good at business");
+		Set<Contact> output = cm.getContacts(1, 2);
+		assertTrue(output.size() == 2);
+	}
+	
+	@Test
+	public void testsGetContactsWithFourIdsAndFourItemsInContactSet() {
+		cm.addNewContact("John", "Likes cats");
+		cm.addNewContact("Carol", "Good at business");
+		cm.addNewContact("Derek", "Never wears a tie");
+		cm.addNewContact("Tim", "Nice but dim");
+		Set<Contact> output = cm.getContacts(1, 2, 3, 4);
+		assertTrue(output.size() == 4);
+	}
+	
+	@Test
+	public void testsGetContactsWithOneIdAndFourItemsInContactSet() {
+		cm.addNewContact("John", "Likes cats");
+		cm.addNewContact("Carol", "Good at business");
+		cm.addNewContact("Derek", "Never wears a tie");
+		cm.addNewContact("Tim", "Nice but dim");
+		Set<Contact> output = cm.getContacts(2);
+		assertTrue(output.size() == 1);
+	}
+	
+	@Test
+	public void testsGetContactsWithThreeIdsAndFourItemsInContactSet() {
+		cm.addNewContact("John", "Likes cats");
+		cm.addNewContact("Carol", "Good at business");
+		cm.addNewContact("Derek", "Never wears a tie");
+		cm.addNewContact("Tim", "Nice but dim");
+		Set<Contact> output = cm.getContacts(2, 3, 4);
+		assertTrue(output.size() == 3);
+	}
+	
+	@Test
+	public void testsGetContactsWithThreeIdsOutOfOrderAndFourItemsInContactSet() {
+		cm.addNewContact("John", "Likes cats");
+		cm.addNewContact("Carol", "Good at business");
+		cm.addNewContact("Derek", "Never wears a tie");
+		cm.addNewContact("Tim", "Nice but dim");
+		Set<Contact> output = cm.getContacts(4, 1, 3);
+		assertTrue(output.size() == 3);
+	}
 }
