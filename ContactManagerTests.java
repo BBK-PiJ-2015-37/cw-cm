@@ -58,7 +58,8 @@ public class ContactManagerTests {
 	
 	@Test (expected = NullPointerException.class)
 	public void testsGetContactsWithNullStringThrowsException() {
-		cm.getContacts(null);
+		String contactName = null;
+		cm.getContacts(contactName);
 	}
 	
 	@Test
@@ -116,5 +117,22 @@ public class ContactManagerTests {
 		cm.addNewContact("Derek", "Never wears a tie");
 		Set<Contact> output = cm.getContacts("John");
 		assertTrue(output.size() == 1);
+	}
+
+	@Test (expected = IllegalArgumentException.class)
+	public void testsGetContactsWithNoIdsThrowsException() {
+		cm.addNewContact("John", "Likes cats");
+		cm.getContacts();
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testsGetContactsWithUnknownIdThrowsException() {
+		cm.addNewContact("John", "Likes cats");
+		cm.getContacts(2);
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testsGetContactsWithUnknownIdAndEmptyContactSetThrowsException() {
+		cm.getContacts(1);
 	}
 }
