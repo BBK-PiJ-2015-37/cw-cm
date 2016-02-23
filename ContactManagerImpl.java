@@ -47,4 +47,12 @@ public class ContactManagerImpl implements ContactManager {
 			return result;
 		}
 	}
+	
+	@Override
+	/**
+	 * @see ContactManager
+	 */
+	public Set<Contact> getContacts(int... ids) {
+		return null;
+	}
 }
