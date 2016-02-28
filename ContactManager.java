@@ -7,6 +7,21 @@ import java.util.Set;
 public interface ContactManager {
 	
 	/**
+	 * Add a new meeting to be held in the future.
+	 *
+	 * An ID is returned when the meeting is put into the system. This
+	 * ID must be positive and non-zero.
+	 *
+	 * @param contacts a list of contacts that will participate in the meeting
+	 * @param date the date on which the meeting will take place
+	 * @return the ID for the meeting
+	 * @throws IllegalArgumentException if the meeting is set for a time
+	 * in the past, of if any contact is unknown / non-existent.
+	 * @throws NullPointerException if the meeting or the date are null
+	 */
+	int addFutureMeeting(Set<Contact> contacts, Calendar date);
+	
+	/**
 	 * Create a new contact with the specified name and notes.
 	 *
 	 * @param name the name of the contact.
