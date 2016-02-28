@@ -206,4 +206,30 @@ public class ContactManagerMeetingMethodTests {
 		FutureMeeting output = cm.getFutureMeeting(3);
 		assertEquals(expected, output);
 	}
+	
+	@Test
+	public void testsGetMeetingWithValidId() {
+		attendees = cm.getContacts(1,4,7,8);
+		date = new GregorianCalendar(2016, 9, 10);
+		cm.addFutureMeeting(attendees, date);
+		Meeting output = cm.getMeeting(1);
+		assertTrue(output.getContacts().equals(attendees));
+		assertTrue(output.getDate().equals(date));
+	}
+	
+	@Test
+	public void testsGetMeetingWithInvalidIdReturnsNull() {
+		attendees = cm.getContacts(1,4,7,8);
+		date = new GregorianCalendar(2016, 9, 10);
+		cm.addFutureMeeting(attendees, date);
+		assertNull(cm.getMeeting(-2));
+	}
+	
+	@Test
+	public void testsGetMeetingWithUnknownIdReturnsNull() {
+		attendees = cm.getContacts(1,4,7,8);
+		date = new GregorianCalendar(2016, 9, 10);
+		cm.addFutureMeeting(attendees, date);
+		assertNull(cm.getMeeting(2));
+	}
 }
