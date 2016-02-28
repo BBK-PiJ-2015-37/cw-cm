@@ -52,7 +52,21 @@ public class ContactManagerImpl implements ContactManager {
 	 * @see ContactManager
 	 */
 	public void addNewPastMeeting(Set<Contact> contacts, Calendar date, String text) {
-		
+		if (contacts.equals(null) || date.equals(null)) {
+			throw new NullPointerException("Null parameters not permitted");
+		}
+		if (contacts.size() == 0) {
+			throw new IllegalArgumentException("At least one attendee required");
+		}
+		if (!allContactsValid(contacts)) {
+			throw new IllegalArgumentException("At least one attendee is unknown");
+		}
+		if (date.after(currentDate)) {
+			throw new IllegalArgumentException("Date provided is in the future");
+		}
+		int newMeetingId = meetingList.size() + 1;
+		PastMeeting meetingToAdd = new PastMeetingImpl(newMeetingId, date, contacts, text);
+		meetingList.add(meetingToAdd);
 	}
 	
 	@Override
