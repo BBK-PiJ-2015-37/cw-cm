@@ -43,6 +43,14 @@ public class ContactManagerImpl implements ContactManager {
 	/**
 	 * @see ContactManager
 	 */
+	public PastMeeting getPastMeeting(int id) {
+		return null;
+	}
+	
+	@Override
+	/**
+	 * @see ContactManager
+	 */
 	public FutureMeeting getFutureMeeting(int id) {
 		Meeting retrieved = getMeeting(id);
 		if (retrieved instanceof PastMeeting) {
