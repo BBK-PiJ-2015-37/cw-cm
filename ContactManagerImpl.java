@@ -44,7 +44,11 @@ public class ContactManagerImpl implements ContactManager {
 	 * @see ContactManager
 	 */
 	public PastMeeting getPastMeeting(int id) {
-		return null;
+		Meeting retrieved = getMeeting(id);
+		if (retrieved instanceof FutureMeeting) {
+			throw new IllegalStateException("Meeting with that id found in the future");
+		}
+		return (PastMeeting) retrieved;
 	}
 	
 	@Override
