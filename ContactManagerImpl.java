@@ -43,6 +43,22 @@ public class ContactManagerImpl implements ContactManager {
 	/**
 	 * @see ContactManager
 	 */
+	public FutureMeeting getFutureMeeting(int id) {
+		return null;
+	}
+	
+	@Override
+	/**
+	 * @see ContactManager
+	 */
+	public void addNewPastMeeting(Set<Contact> contacts, Calendar date, String text) {
+		
+	}
+	
+	@Override
+	/**
+	 * @see ContactManager
+	 */
 	public int addNewContact(String name, String notes) {
 		if (name.equals(null) || notes.equals(null)) {
 			throw new NullPointerException("Null parameters not permitted");
