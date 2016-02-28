@@ -7,6 +7,7 @@ import org.junit.Before;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNull;
 
 public class ContactManagerMeetingMethodTests {
 	ContactManager cm;
@@ -154,5 +155,55 @@ public class ContactManagerMeetingMethodTests {
 		date = new GregorianCalendar(2017, 2, 10);
 		int output = cm.addFutureMeeting(attendees, date);
 		assertEquals(4, output);
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testsGetFutureMeetingWithPastMeetingThrowsException() {
+		attendees = cm.getContacts(2,3,6,8);
+		date = new GregorianCalendar(2015, 2, 10);
+		cm.addNewPastMeeting(attendees, date, "Notes");
+		cm.getFutureMeeting(1);
+	}
+	
+	@Test
+	public void testsGetFutureMeetingWithUnknownIdAndEmptyMeetingListReturnsNull() {
+		assertNull(cm.getFutureMeeting(1));
+	}
+	
+	@Test
+	public void testsGetFutureMeetingWithUnknownIdAndNonEmptyMeetingListReturnsNull() {
+		attendees = cm.getContacts(2,3,6,8);
+		date = new GregorianCalendar(2015, 2, 10);
+		cm.addNewPastMeeting(attendees, date, "Notes");
+		assertNull(cm.getFutureMeeting(2));
+	}
+	
+	@Test
+	public void testsGetFutureMeetingWithOneMeetingInList() {
+		attendees = cm.getContacts(1,2,3,4);
+		date = new GregorianCalendar(2017, 2, 10);
+		FutureMeeting expected = new FutureMeetingImpl(1, date, attendees);
+		cm.addFutureMeeting(attendees, date);
+		FutureMeeting output = cm.getFutureMeeting(1);
+		assertEquals(expected, output);
+	}
+	
+	@Test
+	public void testsGetFutureMeetingWithMultipleMeetingsInList() {
+		attendees = cm.getContacts(1,4,7,8);
+		date = new GregorianCalendar(2016, 9, 10);
+		cm.addFutureMeeting(attendees, date);
+		attendees = cm.getContacts(1,4,7,8);
+		date = new GregorianCalendar(2014, 9, 10);
+		cm.addNewPastMeeting(attendees, date, "Notes");
+		attendees = cm.getContacts(1,2,3,4);
+		date = new GregorianCalendar(2017, 2, 10);
+		FutureMeeting expected = new FutureMeetingImpl(3, date, attendees);
+		cm.addFutureMeeting(attendees, date);
+		attendees = cm.getContacts(2,3,6,8);
+		date = new GregorianCalendar(2015, 2, 10);
+		cm.addNewPastMeeting(attendees, date, "Notes");
+		FutureMeeting output = cm.getFutureMeeting(3);
+		assertEquals(expected, output);
 	}
 }
