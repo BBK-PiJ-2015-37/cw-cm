@@ -62,4 +62,34 @@ public class ContactManagerMeetingMethodTests {
 		date = new GregorianCalendar(2017, 2, 10);
 		cm.addFutureMeeting(attendees, date);
 	}
+	
+	@Test
+	public void testsAddFutureMeetingReturnsPositiveNonZeroInteger() {
+		attendees = cm.getContacts(2,3,6,8);
+		date = new GregorianCalendar(2017, 2, 10);
+		int output = cm.addFutureMeeting(attendees, date);
+		assertTrue(output > 0);
+	}
+	
+	@Test
+	public void testsAddFutureMeetingToEmptyMeetingList() {
+		attendees = cm.getContacts(2,3,6,8);
+		date = new GregorianCalendar(2017, 2, 10);
+		int output = cm.addFutureMeeting(attendees, date);
+		assertEquals(1, output);
+	}
+	
+	@Test
+	public void testsAddFutureMeetingToNonEmptyMeetingList() {
+		attendees = cm.getContacts(2,3,6,8);
+		date = new GregorianCalendar(2017, 2, 10);
+		cm.addFutureMeeting(attendees, date);
+		attendees = cm.getContacts(1,4,7,8);
+		date = new GregorianCalendar(2016, 9, 10);
+		cm.addFutureMeeting(attendees, date);
+		attendees = cm.getContacts(4,5);
+		date = new GregorianCalendar(2016, 5, 11);
+		int output = cm.addFutureMeeting(attendees, date);
+		assertEquals(3, output);
+	}
 }
