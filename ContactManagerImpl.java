@@ -52,7 +52,11 @@ public class ContactManagerImpl implements ContactManager {
 	 * @see ContactManager
 	 */
 	public Meeting getMeeting(int id) {
-		return null;
+		Meeting result = null;
+		if (id > 0 && id <= meetingList.size()) {
+			result = meetingList.get(id - 1);
+		}
+		return result;
 	}
 	
 	@Override
