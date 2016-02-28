@@ -182,10 +182,10 @@ public class ContactManagerMeetingMethodTests {
 	public void testsGetFutureMeetingWithOneMeetingInList() {
 		attendees = cm.getContacts(1,2,3,4);
 		date = new GregorianCalendar(2017, 2, 10);
-		FutureMeeting expected = new FutureMeetingImpl(1, date, attendees);
 		cm.addFutureMeeting(attendees, date);
 		FutureMeeting output = cm.getFutureMeeting(1);
-		assertEquals(expected, output);
+		assertTrue(output.getContacts().equals(attendees));
+		assertTrue(output.getDate().equals(date));
 	}
 	
 	@Test
@@ -198,13 +198,10 @@ public class ContactManagerMeetingMethodTests {
 		cm.addNewPastMeeting(attendees, date, "Notes");
 		attendees = cm.getContacts(1,2,3,4);
 		date = new GregorianCalendar(2017, 2, 10);
-		FutureMeeting expected = new FutureMeetingImpl(3, date, attendees);
 		cm.addFutureMeeting(attendees, date);
-		attendees = cm.getContacts(2,3,6,8);
-		date = new GregorianCalendar(2015, 2, 10);
-		cm.addNewPastMeeting(attendees, date, "Notes");
 		FutureMeeting output = cm.getFutureMeeting(3);
-		assertEquals(expected, output);
+		assertTrue(output.getContacts().equals(attendees));
+		assertTrue(output.getDate().equals(date));
 	}
 	
 	@Test
