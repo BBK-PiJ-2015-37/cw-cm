@@ -92,4 +92,67 @@ public class ContactManagerMeetingMethodTests {
 		int output = cm.addFutureMeeting(attendees, date);
 		assertEquals(3, output);
 	}
+	
+	@Test (expected = NullPointerException.class)
+	public void testsAddNewPastMeetingWithNullContactSetThrowsException() {
+		date = new GregorianCalendar(2014, 2, 10);
+		cm.addNewPastMeeting(null, date, "Notes");
+	}
+	
+	@Test (expected = NullPointerException.class)
+	public void testsAddNewPastMeetingWithNullDateThrowsException() {
+		attendees = cm.getContacts(1,3,5,7);
+		cm.addNewPastMeeting(attendees, null, "Notes");
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testsAddNewPastMeetingWithFutureDateThrowsException() {
+		attendees = cm.getContacts(1,3,5,7);
+		date = new GregorianCalendar(2017, 2, 10);
+		cm.addNewPastMeeting(attendees, date, "Notes");
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testsAddNewPastMeetingWithEmptyContactSetThrowsException() {
+		date = new GregorianCalendar(2015, 2, 10);
+		cm.addNewPastMeeting(attendees, date, "Notes");
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testsAddNewPastMeetingWithUnknownContactThrowsException() {
+		attendees = cm.getContacts(1,3,5,7);
+		Contact unknown = new ContactImpl(999, "Mystery");
+		attendees.add(unknown);
+		date = new GregorianCalendar(2015, 2, 10);
+		cm.addNewPastMeeting(attendees, date, "Notes");
+	}
+	
+	
+	@Test
+	public void testsAddNewPastMeetingToEmptyMeetingList() {
+		attendees = cm.getContacts(2,3,6,8);
+		date = new GregorianCalendar(2015, 2, 10);
+		cm.addNewPastMeeting(attendees, date, "Notes");
+		attendees = cm.getContacts(2,3,6,8);
+		date = new GregorianCalendar(2017, 2, 10);
+		int output = cm.addFutureMeeting(attendees, date);
+		assertEquals(2, output);
+	}
+	
+	@Test
+	public void testsAddNewPastMeetingToNonEmptyMeetingList() {
+		attendees = cm.getContacts(2,3,6,8);
+		date = new GregorianCalendar(2015, 2, 10);
+		cm.addNewPastMeeting(attendees, date, "Notes");
+		attendees = cm.getContacts(1,4,7,8);
+		date = new GregorianCalendar(2014, 9, 10);
+		cm.addNewPastMeeting(attendees, date, "Notes");
+		attendees = cm.getContacts(4,5);
+		date = new GregorianCalendar(2014, 5, 11);
+		cm.addNewPastMeeting(attendees, date, "Notes");
+		attendees = cm.getContacts(2,3,6,8);
+		date = new GregorianCalendar(2017, 2, 10);
+		int output = cm.addFutureMeeting(attendees, date);
+		assertEquals(4, output);
+	}
 }
