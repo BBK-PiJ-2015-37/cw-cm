@@ -229,4 +229,51 @@ public class ContactManagerMeetingMethodTests {
 		cm.addFutureMeeting(attendees, date);
 		assertNull(cm.getMeeting(2));
 	}
+	
+	@Test (expected = IllegalStateException.class)
+	public void testsGetPastMeetingWithFutureMeetingThrowsException() {
+		attendees = cm.getContacts(2,3,6,8);
+		date = new GregorianCalendar(2017, 2, 10);
+		cm.addFutureMeeting(attendees, date);
+		cm.getPastMeeting(1);
+	}
+	
+	@Test
+	public void testsGetPastMeetingWithUnknownIdAndEmptyMeetingListReturnsNull() {
+		assertNull(cm.getPastMeeting(1));
+	}
+	
+	@Test
+	public void testsGetPastMeetingWithUnknownIdAndNonEmptyMeetingListReturnsNull() {
+		attendees = cm.getContacts(2,3,6,8);
+		date = new GregorianCalendar(2015, 2, 10);
+		cm.addNewPastMeeting(attendees, date, "Notes");
+		assertNull(cm.getPastMeeting(2));
+	}
+	
+	@Test
+	public void testsGetPastMeetingWithOneMeetingInList() {
+		attendees = cm.getContacts(2,3,6,8);
+		date = new GregorianCalendar(2015, 2, 10);
+		cm.addNewPastMeeting(attendees, date, "Notes");
+		PastMeeting output = cm.getPastMeeting(1);
+		assertTrue(output.getContacts().equals(attendees));
+		assertTrue(output.getDate().equals(date));
+	}
+	
+	@Test
+	public void testsGetPastMeetingWithMultipleMeetingsInList() {
+		attendees = cm.getContacts(1,4,7,8);
+		date = new GregorianCalendar(2016, 9, 10);
+		cm.addFutureMeeting(attendees, date);
+		attendees = cm.getContacts(1,4,7,8);
+		date = new GregorianCalendar(2014, 9, 10);
+		cm.addNewPastMeeting(attendees, date, "Notes");
+		attendees = cm.getContacts(2,3,6,8);
+		date = new GregorianCalendar(2015, 2, 10);
+		cm.addNewPastMeeting(attendees, date, "Notes");
+		PastMeeting output = cm.getPastMeeting(3);
+		assertTrue(output.getContacts().equals(attendees));
+		assertTrue(output.getDate().equals(date));
+	}
 }
