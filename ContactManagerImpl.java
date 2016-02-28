@@ -1,13 +1,19 @@
+import java.util.GregorianCalendar;
 import java.util.Calendar;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.HashSet;
 import java.util.Set;
 
 public class ContactManagerImpl implements ContactManager {
 	private Set<Contact> contactList;
+	private List<Meeting> meetingList;
+	private Calendar currentDate;
 	
 	public ContactManagerImpl() {
 		contactList = new HashSet<>();
+		meetingList = new ArrayList<>();
+		currentDate = new GregorianCalendar();
 	}
 	
 	@Override
@@ -15,7 +21,22 @@ public class ContactManagerImpl implements ContactManager {
 	 * @see ContactManager
 	 */
 	public int addFutureMeeting(Set<Contact> contacts, Calendar date) {
-		return -999;
+		if (contacts.equals(null) || date.equals(null)) {
+			throw new NullPointerException("Null parameters not permitted");
+		}
+		if (contacts.size() == 0) {
+			throw new IllegalArgumentException("At least one attendee required");
+		}
+		if (!allContactsValid(contacts)) {
+			throw new IllegalArgumentException("At least one attendee is unknown");
+		}
+		if (date.before(currentDate)) {
+			throw new IllegalArgumentException("Date provided is in the past");
+		}
+		int newMeetingId = meetingList.size() + 1;
+		FutureMeeting meetingToAdd = new FutureMeetingImpl(newMeetingId, date, contacts);
+		meetingList.add(meetingToAdd);
+		return newMeetingId;
 	}
 	
 	@Override
@@ -77,5 +98,21 @@ public class ContactManagerImpl implements ContactManager {
 		}
 		return result;
 		
+	}
+	
+	/*
+	 * Loops through elements in a given set of contacts and checks
+	 * that Contact Manager's list of contacts contains all of them.
+	 *
+	 * @param contacts list of contacts
+	 * @return true if all contacts in contact list, false otherwise
+	 */
+	private boolean allContactsValid(Set<Contact> contacts) {
+		for (Contact c : contacts) {
+			if (!contactList.contains(c)) {
+				return false;
+			}
+		}
+		return true;
 	}
 }
