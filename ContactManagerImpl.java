@@ -116,6 +116,10 @@ public class ContactManagerImpl implements ContactManager {
 			} else {
 				out = new PastMeetingImpl(id, meeting.getDate(), meeting.getContacts(), text);
 			}
+		} else {
+			PastMeeting past = (PastMeeting) meeting;
+			out = new PastMeetingImpl(id, past.getDate(), past.getContacts(),
+										past.getNotes().concat("\n" + text));
 		}
 		meetingList.set(id - 1, out);
 		return out;
