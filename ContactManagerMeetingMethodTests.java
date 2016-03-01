@@ -297,4 +297,37 @@ public class ContactManagerMeetingMethodTests {
 		cm.addNewPastMeeting(attendees, date, "Notes");
 		cm.addMeetingNotes(1, null);
 	}
+	
+	@Test
+	public void testsAddMeetingNotesWithPastMeetingAppendsNotes() {
+		attendees = cm.getContacts(1,4,7,8);
+		date = new GregorianCalendar(2014, 9, 10);
+		cm.addNewPastMeeting(attendees, date, "Notes");
+		cm.addMeetingNotes(1, "More notes");
+		String expected = "Notes\nMore notes";
+		String output = cm.getPastMeeting(1).getNotes();
+		assertEquals(expected, output);
+	}
+	
+	@Test
+	public void testsAddMeetingNotesWithFutureMeetingNowPassedConvertsMeetingType() {
+		attendees = cm.getContacts(1,4,7,8);
+		date = new GregorianCalendar(2017, 9, 10);
+		cm.addFutureMeeting(attendees, date);
+		presentDate = new GregorianCalendar(2017, 9, 11);
+		cm.addMeetingNotes(1, "Notes");
+		assertTrue(cm.getMeeting(1) instanceof PastMeeting);
+	}
+	
+	@Test
+	public void testsAddMeetingNotesWithFutureMeetingNowPassedAddsNotes() {
+		attendees = cm.getContacts(1,4,7,8);
+		date = new GregorianCalendar(2017, 9, 10);
+		cm.addFutureMeeting(attendees, date);
+		presentDate = new GregorianCalendar(2017, 9, 11);
+		cm.addMeetingNotes(1, "Notes");
+		String expected = "Notes";
+		String output = cm.getPastMeeting(1).getNotes();
+		assertEquals(expected, output);
+	}
 }
