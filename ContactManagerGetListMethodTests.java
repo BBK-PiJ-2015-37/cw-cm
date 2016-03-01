@@ -1,5 +1,9 @@
 import java.util.GregorianCalendar;
+import java.util.List;
 import org.junit.Before;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 public class ContactManagerGetListMethodTests {
 	private ContactManager cm;
@@ -25,5 +29,29 @@ public class ContactManagerGetListMethodTests {
 		cm.addNewPastMeeting(cm.getContacts(2,4,7), new GregorianCalendar(2015, 5, 12), "Notes");
 		cm.addFutureMeeting(cm.getContacts(1,3,4), new GregorianCalendar(2016, 9, 19));
 		cm.addNewPastMeeting(cm.getContacts(1,2,4,7), new GregorianCalendar(2015, 5, 12), "Notes");
+		cm.addFutureMeeting(cm.getContacts(1,3,4), new GregorianCalendar(2016, 9, 19));
+	}
+	
+	@Test (expected = NullPointerException.class)
+	public void testsGetMeetingListOnWithNullDateThrowsException() {
+		cm.getMeetingListOn(null);
+	}
+	
+	@Test
+	public void testsGetMeetingListOnWithDateWithNoMeetings() {
+		List<Meeting> output = cm.getMeetingListOn(new GregorianCalendar(2016, 7, 18));
+		assertEquals(0, output.size());
+	}
+	
+	@Test
+	public void testsGetMeetingListOnWithDateWithDuplicateMeetings() {
+		List<Meeting> output = cm.getMeetingListOn(new GregorianCalendar(2017, 11, 20));
+		assertEquals(1, output.size());
+	}
+	
+	@Test
+	public void testsGetMeetingListOnWithDateWithMultipleMeetings() {
+		List<Meeting> output = cm.getMeetingListOn(new GregorianCalendar(2015, 5, 12));
+		assertEquals(2, output.size());
 	}
 }
