@@ -102,6 +102,19 @@ public class ContactManagerImpl implements ContactManager {
 	 * @see ContactManager
 	 */
 	public PastMeeting addMeetingNotes(int id, String text) {
+		if (text.equals(null)) {
+			throw new NullPointerException("Null parameters not permitted");
+		}
+		if ((id < 1 || id > meetingList.size())) {
+			throw new IllegalArgumentException("No meeting with that id found");
+		}
+		Meeting meeting = getMeeting(id);
+		PastMeeting out = null;
+		if (meeting instanceof FutureMeeting) {
+			if (meeting.getDate().after(currentDate)) {
+				throw new IllegalStateException("Meeting with that id found in the future");
+			}
+		}
 		return null;
 	}
 	
