@@ -311,23 +311,25 @@ public class ContactManagerMeetingMethodTests {
 	
 	@Test
 	public void testsAddMeetingNotesWithFutureMeetingNowPassedConvertsMeetingType() {
-		attendees = cm.getContacts(1,4,7,8);
+		ContactManagerImpl cmi = (ContactManagerImpl) cm;
+		attendees = cmi.getContacts(1,4,7,8);
 		date = new GregorianCalendar(2017, 9, 10);
-		cm.addFutureMeeting(attendees, date);
-		presentDate = new GregorianCalendar(2017, 9, 11);
-		cm.addMeetingNotes(1, "Notes");
-		assertTrue(cm.getMeeting(1) instanceof PastMeeting);
+		cmi.addFutureMeeting(attendees, date);
+		cmi.setCurrentDate(new GregorianCalendar(2017, 9, 11));
+		cmi.addMeetingNotes(1, "Notes");
+		assertTrue(cmi.getMeeting(1) instanceof PastMeeting);
 	}
 	
 	@Test
 	public void testsAddMeetingNotesWithFutureMeetingNowPassedAddsNotes() {
-		attendees = cm.getContacts(1,4,7,8);
+		ContactManagerImpl cmi = (ContactManagerImpl) cm;
+		attendees = cmi.getContacts(1,4,7,8);
 		date = new GregorianCalendar(2017, 9, 10);
-		cm.addFutureMeeting(attendees, date);
-		presentDate = new GregorianCalendar(2017, 9, 11);
-		cm.addMeetingNotes(1, "Notes");
+		cmi.addFutureMeeting(attendees, date);
+		cmi.setCurrentDate(new GregorianCalendar(2017, 9, 11));
+		cmi.addMeetingNotes(1, "Notes");
 		String expected = "Notes";
-		String output = cm.getPastMeeting(1).getNotes();
+		String output = cmi.getPastMeeting(1).getNotes();
 		assertEquals(expected, output);
 	}
 }
