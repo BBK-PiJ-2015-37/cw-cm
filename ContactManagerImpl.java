@@ -113,9 +113,12 @@ public class ContactManagerImpl implements ContactManager {
 		if (meeting instanceof FutureMeeting) {
 			if (meeting.getDate().after(currentDate)) {
 				throw new IllegalStateException("Meeting with that id found in the future");
-			} 
+			} else {
+				out = new PastMeetingImpl(id, meeting.getDate(), meeting.getContacts(), text);
+			}
 		}
-		return null;
+		meetingList.set(id - 1, out);
+		return out;
 	}
 	
 	@Override
