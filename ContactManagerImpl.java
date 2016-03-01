@@ -113,7 +113,7 @@ public class ContactManagerImpl implements ContactManager {
 		if (meeting instanceof FutureMeeting) {
 			if (meeting.getDate().after(currentDate)) {
 				throw new IllegalStateException("Meeting with that id found in the future");
-			}
+			} 
 		}
 		return null;
 	}
@@ -193,5 +193,13 @@ public class ContactManagerImpl implements ContactManager {
 			}
 		}
 		return true;
+	}
+	
+	/*
+	 * A method that sets the Contact Manager's current date to that
+	 * given. Method required purely for testing purposes. 
+	 */
+	public void setCurrentDate(Calendar date) {
+		currentDate = date;
 	}
 }
