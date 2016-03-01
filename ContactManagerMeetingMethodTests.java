@@ -276,4 +276,25 @@ public class ContactManagerMeetingMethodTests {
 		assertTrue(output.getContacts().equals(attendees));
 		assertTrue(output.getDate().equals(date));
 	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testsAddMeetingNotesWithUnknownMeetingIdThrowsException() {
+		cm.addMeetingNotes(1, "Notes");
+	}
+	
+	@Test (expected = IllegalStateException.class)
+	public void testsAddMeetingNotesWithMeetingInFutureThrowsException() {
+		attendees = cm.getContacts(1,4,7,8);
+		date = new GregorianCalendar(2017, 9, 10);
+		cm.addFutureMeeting(attendees, date);
+		cm.addMeetingNotes(1, "Notes");
+	}
+	
+	@Test (expected = NullPointerException.class)
+	public void testsAddMeetingNotesWithNullNotesThrowsException() {
+		attendees = cm.getContacts(1,4,7,8);
+		date = new GregorianCalendar(2014, 9, 10);
+		cm.addNewPastMeeting(attendees, date, "Notes");
+		cm.addMeetingNotes(1, null);
+	}
 }
