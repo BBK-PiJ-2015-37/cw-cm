@@ -22,9 +22,9 @@ public class ContactManagerGetListMethodTests {
 		cm.addNewContact("Fiona", "Rather argumentative");
 		
 		cm.addFutureMeeting(cm.getContacts(1,4,7), new GregorianCalendar(2018, 1, 3));
-		cm.addNewPastMeeting(cm.getContacts(2,3), new GregorianCalendar(2016, 2, 28), "Notes");
+		cm.addNewPastMeeting(cm.getContacts(2,3), new GregorianCalendar(2015, 2, 28), "Notes");
 		cm.addFutureMeeting(cm.getContacts(5,6,7), new GregorianCalendar(2017, 11, 20));
-		cm.addNewPastMeeting(cm.getContacts(1,6,8), new GregorianCalendar(2016, 2, 27), "Notes");
+		cm.addNewPastMeeting(cm.getContacts(1,6,8), new GregorianCalendar(2015, 2, 27), "Notes");
 		cm.addFutureMeeting(cm.getContacts(5,6,7), new GregorianCalendar(2017, 11, 20));
 		cm.addNewPastMeeting(cm.getContacts(2,4,7), new GregorianCalendar(2015, 5, 12), "Notes");
 		cm.addFutureMeeting(cm.getContacts(1,3,4), new GregorianCalendar(2016, 9, 19));
