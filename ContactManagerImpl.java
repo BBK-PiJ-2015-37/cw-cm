@@ -80,7 +80,20 @@ public class ContactManagerImpl implements ContactManager {
 	 * @see ContactManager
 	 */
 	public List<Meeting> getMeetingListOn(Calendar date) {
-		return null;
+		if (date.equals(null)) {
+			throw new NullPointerException("Null parameters not permitted");
+		}
+		List<Meeting> out = new ArrayList<>();
+		System.out.println(date.get(Calendar.YEAR));
+		for (Meeting m : meetingList) {
+			Calendar meetingDate = m.getDate();
+			if ((meetingDate.get(Calendar.YEAR) == date.get(Calendar.YEAR))
+					&& (meetingDate.get(Calendar.MONTH) == date.get(Calendar.MONTH))
+						&& (meetingDate.get(Calendar.DAY_OF_MONTH) == date.get(Calendar.DAY_OF_MONTH))) {
+				out.add(m);	
+			}
+		}
+		return out;
 	}
 	
 	@Override
