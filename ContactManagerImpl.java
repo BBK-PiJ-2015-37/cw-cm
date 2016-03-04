@@ -94,6 +94,7 @@ public class ContactManagerImpl implements ContactManager {
 				out.add(m);	
 			}
 		}
+		removeDuplicates(out);
 		Collections.sort(out, new DateComparator());
 		return out;
 	}
@@ -231,6 +232,22 @@ public class ContactManagerImpl implements ContactManager {
 	 */
 	public void setCurrentDate(Calendar date) {
 		currentDate = date;
+	}
+	
+	/*
+	 * A method that removes duplicates from a list by first adding all
+	 * items in the list to a set, clearing the list, then returning items
+	 * from the set to the list.
+	 *
+	 * @param list the list from which duplicates will be removed
+	 * @return the list with no duplicates
+	 */
+	private List<Meeting> removeDuplicates(List<Meeting> list) {
+		Set<Meeting> set = new HashSet<>();
+		set.addAll(list);
+		list.clear();
+		list.addAll(set);
+		return list;
 	}
 	
 	class DateComparator implements Comparator<Meeting> {
