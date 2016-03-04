@@ -86,7 +86,6 @@ public class ContactManagerImpl implements ContactManager {
 			throw new NullPointerException("Null parameters not permitted");
 		}
 		List<Meeting> out = new ArrayList<>();
-		System.out.println(date.get(Calendar.YEAR));
 		for (Meeting m : meetingList) {
 			Calendar meetingDate = m.getDate();
 			if ((meetingDate.get(Calendar.YEAR) == date.get(Calendar.YEAR))
