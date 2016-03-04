@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Comparator;
+import java.util.Collections;
 
 public class ContactManagerImpl implements ContactManager {
 	private Set<Contact> contactList;
@@ -93,6 +95,7 @@ public class ContactManagerImpl implements ContactManager {
 				out.add(m);	
 			}
 		}
+		Collections.sort(out, new DateComparator());
 		return out;
 	}
 	
@@ -229,5 +232,23 @@ public class ContactManagerImpl implements ContactManager {
 	 */
 	public void setCurrentDate(Calendar date) {
 		currentDate = date;
+	}
+	
+	class DateComparator implements Comparator<Meeting> {
+		
+		@Override
+		/*
+		 * A method to compare two meetings by the date on which they
+		 * take place.
+		 *
+		 * @param o1 the first Meeting
+		 * @param o2 the second Meeting
+		 * @return a negative integer, zero, or a positive integer
+		 * according to whether the first Meeting is before, on the same
+		 * date as, or after the second Meeting 
+		 */
+		public int compare(Meeting o1, Meeting o2) {
+			return o1.getDate().compareTo(o2.getDate());
+		}
 	}
 }
