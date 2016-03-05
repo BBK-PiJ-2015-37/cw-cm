@@ -82,6 +82,14 @@ public class ContactManagerImpl implements ContactManager {
 	/**
 	 * @see ContactManager
 	 */
+	public List<Meeting> getFutureMeetingList(Contact contact) {
+		return null;
+	}
+	
+	@Override
+	/**
+	 * @see ContactManager
+	 */
 	public List<Meeting> getMeetingListOn(Calendar date) {
 		if (date.equals(null)) {
 			throw new NullPointerException("Null parameters not permitted");
