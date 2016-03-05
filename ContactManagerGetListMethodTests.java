@@ -32,6 +32,7 @@ public class ContactManagerGetListMethodTests {
 		cm.addFutureMeeting(cm.getContacts(1,3,4), new GregorianCalendar(2016, 9, 19));
 		cm.addNewPastMeeting(cm.getContacts(1,2,4,7), new GregorianCalendar(2015, 5, 12), "Notes");
 		cm.addFutureMeeting(cm.getContacts(1,3,4), new GregorianCalendar(2016, 9, 19));
+		cm.addNewPastMeeting(cm.getContacts(2,4,7), new GregorianCalendar(2015, 5, 12), "Notes");
 	}
 	
 	@Test (expected = NullPointerException.class)
@@ -90,5 +91,41 @@ public class ContactManagerGetListMethodTests {
 		Contact contactToUse = (Contact) contacts[0];
 		List<Meeting> output = cm.getFutureMeetingList(contactToUse);
 		assertTrue(output.get(0).getDate().before(output.get(1).getDate()));
+	}
+	
+	@Test (expected = NullPointerException.class)
+	public void testsGetPastMeetingListForWithNullContactThrowsException() {
+		cm.getPastMeetingListFor(null);
+	}
+	
+	@Test (expected = IllegalArgumentException.class)
+	public void testsGetPastMeetingListForWithUnknownContactThrowsException() {
+		Contact mysteryGuy = new ContactImpl(999, "Mr X", "Who is this?");
+		cm.getPastMeetingListFor(mysteryGuy);
+	}
+	
+	@Test
+	public void testsGetPastMeetingListForWithContactWithNoMeetings() {
+		Object[] contacts = cm.getContacts(9).toArray();
+		Contact contactToUse = (Contact) contacts[0];
+		List<PastMeeting> output = cm.getPastMeetingListFor(contactToUse);
+		assertTrue(output.size() == 0);
+	}
+	
+	@Test
+	public void testsGetPastMeetingListForReturnsNoDuplicates() {
+		Object[] contacts = cm.getContacts(2).toArray();
+		Contact contactToUse = (Contact) contacts[0];
+		List<PastMeeting> output = cm.getPastMeetingListFor(contactToUse);
+		assertTrue(output.size() == 3);
+	}
+	
+	@Test
+	public void testsGetPastMeetingListForReturnsMeetingsChronologically() {
+		Object[] contacts = cm.getContacts(2).toArray();
+		Contact contactToUse = (Contact) contacts[0];
+		List<PastMeeting> output = cm.getPastMeetingListFor(contactToUse);
+		assertTrue(output.get(0).getDate().before(output.get(1).getDate()));
+		assertTrue(output.get(1).getDate().before(output.get(2).getDate()));
 	}
 }
