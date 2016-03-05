@@ -11,6 +11,9 @@ import java.io.File;
 import java.io.ObjectOutputStream;
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
 
 public class ContactManagerImpl implements ContactManager {
@@ -20,8 +23,22 @@ public class ContactManagerImpl implements ContactManager {
 	private final String FILENAME = "contacts.txt";
 	
 	public ContactManagerImpl() {
-		contactList = new HashSet<>();
-		meetingList = new ArrayList<>();
+		File storageFile = new File("." + File.separator + FILENAME);
+		if (storageFile.exists()) {
+			try (ObjectInputStream in = new ObjectInputStream(
+			                           new BufferedInputStream(
+			                             new FileInputStream(storageFile)))) {
+				contactList = (Set<Contact>) in.readObject();
+				meetingList = (List<Meeting>) in.readObject();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+		} else {
+			contactList = new HashSet<>();
+			meetingList = new ArrayList<>();
+		}
 		currentDate = new GregorianCalendar();
 	}
 	
