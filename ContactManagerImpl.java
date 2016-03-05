@@ -262,6 +262,14 @@ public class ContactManagerImpl implements ContactManager {
 		
 	}
 	
+	@Override
+	/**
+	 * @see ContactManager
+	 */
+	public void flush() {
+		
+	}
+	
 	/*
 	 * Loops through elements in a given set of contacts and checks
 	 * that Contact Manager's list of contacts contains all of them.
