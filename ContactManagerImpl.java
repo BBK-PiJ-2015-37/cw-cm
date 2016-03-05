@@ -7,11 +7,17 @@ import java.util.Set;
 import java.util.Comparator;
 import java.util.Collections;
 import java.util.ListIterator;
+import java.io.File;
+import java.io.ObjectOutputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class ContactManagerImpl implements ContactManager {
 	private Set<Contact> contactList;
 	private List<Meeting> meetingList;
 	private Calendar currentDate;
+	private final String FILENAME = "contacts.txt";
 	
 	public ContactManagerImpl() {
 		contactList = new HashSet<>();
@@ -267,7 +273,22 @@ public class ContactManagerImpl implements ContactManager {
 	 * @see ContactManager
 	 */
 	public void flush() {
-		
+		File storageFile = new File("." + File.separator + FILENAME);
+		if (!storageFile.exists()) {
+			try {
+				storageFile.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		try (ObjectOutputStream out = new ObjectOutputStream(
+			                           new BufferedOutputStream(
+			                             new FileOutputStream(storageFile)))) {
+			out.writeObject(contactList);
+			out.writeObject(meetingList);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/*
