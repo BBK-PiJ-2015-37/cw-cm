@@ -147,7 +147,7 @@ public class ContactManagerImpl implements ContactManager {
 			}
 		}
 		removeDuplicates(out);
-		Collections.sort(out, new DateComparator());
+		Collections.sort(out, new PastDateComparator());
 		return out;
 	}
 	
@@ -326,6 +326,24 @@ public class ContactManagerImpl implements ContactManager {
 		 * date as, or after the second Meeting 
 		 */
 		public int compare(Meeting o1, Meeting o2) {
+			return o1.getDate().compareTo(o2.getDate());
+		}
+	}
+	
+	class PastDateComparator implements Comparator<PastMeeting> {
+		
+		@Override
+		/*
+		 * A method to compare two past meetings by the date on which they
+		 * took place.
+		 *
+		 * @param o1 the first Past Meeting
+		 * @param o2 the second Past Meeting
+		 * @return a negative integer, zero, or a positive integer
+		 * according to whether the first Past Meeting is before, on the same
+		 * date as, or after the second Past Meeting 
+		 */
+		public int compare(PastMeeting o1, PastMeeting o2) {
 			return o1.getDate().compareTo(o2.getDate());
 		}
 	}
