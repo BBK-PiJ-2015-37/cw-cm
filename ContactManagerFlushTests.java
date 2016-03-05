@@ -1,5 +1,6 @@
 import java.util.GregorianCalendar;
 import java.io.File;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -33,6 +34,14 @@ public class ContactManagerFlushTests {
 		cm.addNewPastMeeting(cm.getContacts(1,2,4,7), new GregorianCalendar(2015, 5, 12), "Notes");
 		cm.addFutureMeeting(cm.getContacts(1,3,4), new GregorianCalendar(2016, 9, 19));
 		cm.addNewPastMeeting(cm.getContacts(2,4,7), new GregorianCalendar(2015, 5, 12), "Notes");
+	}
+	
+	@After
+	public void clear() {
+		File storageFile = new File("." + File.separator + "contacts.txt");
+		if(storageFile.exists()) {
+			storageFile.delete();
+		}	
 	}
 	
 	@Test
