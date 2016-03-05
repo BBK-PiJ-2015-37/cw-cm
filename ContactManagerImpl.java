@@ -130,7 +130,25 @@ public class ContactManagerImpl implements ContactManager {
 	 * @see ContactManager
 	 */
 	public List<PastMeeting> getPastMeetingListFor(Contact contact) {
-		return null;
+		if (contact.equals(null)) {
+			throw new NullPointerException("Null parameters not permitted");
+		}
+		if (!(contactList.contains(contact))) {
+			throw new IllegalArgumentException("No such contact known");
+		}
+		List<PastMeeting> out = new ArrayList<>();
+		for (Meeting m : meetingList) {
+			if (m instanceof PastMeeting) {
+				Set<Contact> mContacts = m.getContacts();
+				if (mContacts.contains(contact)) {
+					PastMeeting pm = (PastMeeting) m;
+					out.add(pm);
+				}
+			}
+		}
+		removeDuplicates(out);
+		Collections.sort(out, new DateComparator());
+		return out;
 	}
 	
 	@Override
@@ -275,9 +293,9 @@ public class ContactManagerImpl implements ContactManager {
 	 *
 	 * @param list the list from which duplicates will be removed
 	 */
-	private void removeDuplicates(List<Meeting> list) {
+	private void removeDuplicates(List<? extends Meeting> list) {
 		for (int i = 0; i < list.size(); i++) {
-			ListIterator<Meeting> iterator = list.listIterator(i + 1);
+			ListIterator<? extends Meeting> iterator = list.listIterator(i + 1);
 			while (iterator.hasNext()) {
 				Meeting m = iterator.next();
 				Set<Contact> contacts1 = list.get(i).getContacts();
