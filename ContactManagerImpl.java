@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Comparator;
 import java.util.Collections;
+import java.util.ListIterator;
 
 public class ContactManagerImpl implements ContactManager {
 	private Set<Contact> contactList;
@@ -235,19 +236,29 @@ public class ContactManagerImpl implements ContactManager {
 	}
 	
 	/*
-	 * A method that removes duplicates from a list by first adding all
-	 * items in the list to a set, clearing the list, then returning items
-	 * from the set to the list.
+	 * A method that removes duplicates from a list by creating a ListIterator
+	 * that compares the dates and contact sets of two meetings at a time and
+	 * removes duplicates as it finds them.
 	 *
 	 * @param list the list from which duplicates will be removed
-	 * @return the list with no duplicates
 	 */
-	private List<Meeting> removeDuplicates(List<Meeting> list) {
-		Set<Meeting> set = new HashSet<>();
-		set.addAll(list);
-		list.clear();
-		list.addAll(set);
-		return list;
+	private void removeDuplicates(List<Meeting> list) {
+		for (int i = 0; i < list.size(); i++) {
+			ListIterator<Meeting> iterator = list.listIterator(i + 1);
+			while (iterator.hasNext()) {
+				Meeting m = iterator.next();
+				Set<Contact> contacts1 = list.get(i).getContacts();
+				Calendar date1 = list.get(i).getDate();
+				Set<Contact> contacts2 = m.getContacts();
+				Calendar date2 = m.getDate();
+				if ((date1.get(Calendar.YEAR) == date2.get(Calendar.YEAR))
+					&& (date1.get(Calendar.MONTH) == date2.get(Calendar.MONTH))
+						&& (date1.get(Calendar.DAY_OF_MONTH) == date2.get(Calendar.DAY_OF_MONTH))
+							&& contacts1.size() == contacts2.size() && contacts1.containsAll(contacts2)) {
+					iterator.remove();			
+				}
+			}
+		}
 	}
 	
 	class DateComparator implements Comparator<Meeting> {
