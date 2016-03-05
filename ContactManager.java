@@ -154,4 +154,12 @@ public interface ContactManager {
 	 * any of the provided IDs does not correspond to a real contact
 	 */
 	Set<Contact> getContacts(int... ids);
+	
+	/**
+	 * Save all data to disk.
+	 *
+	 * This method must be executed when the program is
+	 * closed and when/if the user requests it.
+	 */
+	void flush();
 }
