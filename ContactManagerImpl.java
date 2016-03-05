@@ -129,6 +129,14 @@ public class ContactManagerImpl implements ContactManager {
 	/**
 	 * @see ContactManager
 	 */
+	public List<PastMeeting> getPastMeetingListFor(Contact contact) {
+		return null;
+	}
+	
+	@Override
+	/**
+	 * @see ContactManager
+	 */
 	public void addNewPastMeeting(Set<Contact> contacts, Calendar date, String text) {
 		if (contacts.equals(null) || date.equals(null)) {
 			throw new NullPointerException("Null parameters not permitted");
