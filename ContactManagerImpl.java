@@ -83,7 +83,24 @@ public class ContactManagerImpl implements ContactManager {
 	 * @see ContactManager
 	 */
 	public List<Meeting> getFutureMeetingList(Contact contact) {
-		return null;
+		if (contact.equals(null)) {
+			throw new NullPointerException("Null parameters not permitted");
+		}
+		if (!(contactList.contains(contact))) {
+			throw new IllegalArgumentException("No such contact known");
+		}
+		List<Meeting> out = new ArrayList<>();
+		for (Meeting m : meetingList) {
+			if (m instanceof FutureMeeting) {
+				Set<Contact> mContacts = m.getContacts();
+				if (mContacts.contains(contact)) {
+					out.add(m);
+				}
+			}
+		}
+		removeDuplicates(out);
+		Collections.sort(out, new DateComparator());
+		return out;
 	}
 	
 	@Override
