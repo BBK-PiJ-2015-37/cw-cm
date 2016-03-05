@@ -126,6 +126,5 @@ public class ContactManagerGetListMethodTests {
 		Contact contactToUse = (Contact) contacts[0];
 		List<PastMeeting> output = cm.getPastMeetingListFor(contactToUse);
 		assertTrue(output.get(0).getDate().before(output.get(1).getDate()));
-		assertTrue(output.get(1).getDate().before(output.get(2).getDate()));
 	}
 }
