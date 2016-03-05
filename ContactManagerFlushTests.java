@@ -1,5 +1,10 @@
 import java.util.GregorianCalendar;
+import java.io.File;
 import org.junit.Before;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class ContactManagerFlushTests {
 	private ContactManager cm;
@@ -28,5 +33,49 @@ public class ContactManagerFlushTests {
 		cm.addNewPastMeeting(cm.getContacts(1,2,4,7), new GregorianCalendar(2015, 5, 12), "Notes");
 		cm.addFutureMeeting(cm.getContacts(1,3,4), new GregorianCalendar(2016, 9, 19));
 		cm.addNewPastMeeting(cm.getContacts(2,4,7), new GregorianCalendar(2015, 5, 12), "Notes");
+	}
+	
+	@Test
+	public void testFlushCreatesStorageFile() {
+		cm.flush();
+		assertTrue(new File("." + File.separator + "contacts.txt").exists());
+	}
+	
+	@Test
+	public void testFlushSavesMeetingsCorrectly() {
+		cm.flush();
+		ContactManager cm2 = new ContactManagerImpl();
+		assertEquals(new GregorianCalendar(2015, 5, 12), cm2.getMeeting(10).getDate());
+	}
+	
+	@Test
+	public void testFlushSavesContactsCorrectly() {
+		cm.flush();
+		ContactManager cm2 = new ContactManagerImpl();
+		Object[] contacts = cm2.getContacts(9).toArray();
+		Contact contactToUse = (Contact) contacts[0];
+		assertEquals("Gary", contactToUse.getName());
+	}
+	
+	@Test
+	public void testFlushOverwritesOldStorageFileWhenNewContactAdded() {
+		cm.flush();
+		ContactManager cm2 = new ContactManagerImpl();
+		cm2.addNewContact("Mary", "Notes");
+		cm2.flush();
+		ContactManager cm3 = new ContactManagerImpl();
+		Object[] contacts = cm3.getContacts(10).toArray();
+		Contact contactToUse = (Contact) contacts[0];
+		assertEquals("Mary", contactToUse.getName());
+	}
+	
+	@Test
+	public void testFlushOverwritesOldStorageFileWhenNewMeetingAdded() {
+		cm.flush();
+		ContactManager cm2 = new ContactManagerImpl();
+		cm2.addFutureMeeting(cm.getContacts(2,6,7), new GregorianCalendar(2016, 12, 12));
+		cm2.flush();
+		ContactManager cm3 = new ContactManagerImpl();
+		assertEquals(new GregorianCalendar(2016, 12, 12), cm3.getMeeting(11).getDate());
 	}
 }
