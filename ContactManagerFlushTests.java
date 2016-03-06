@@ -82,7 +82,7 @@ public class ContactManagerFlushTests {
 	public void testFlushOverwritesOldStorageFileWhenNewMeetingAdded() {
 		cm.flush();
 		ContactManager cm2 = new ContactManagerImpl();
-		cm2.addFutureMeeting(cm.getContacts(2,6,7), new GregorianCalendar(2016, 12, 12));
+		cm2.addFutureMeeting(cm2.getContacts(2,6,7), new GregorianCalendar(2016, 12, 12));
 		cm2.flush();
 		ContactManager cm3 = new ContactManagerImpl();
 		assertEquals(new GregorianCalendar(2016, 12, 12), cm3.getMeeting(11).getDate());
