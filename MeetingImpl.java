@@ -25,9 +25,7 @@ public abstract class MeetingImpl implements Meeting, Serializable {
 		if (attendees.isEmpty()) {
 			throw new IllegalArgumentException("List of attendees cannot be empty");
 		}
-		if (date.equals(null) || attendees.equals(null)) {
-			throw new NullPointerException("Null parameters not permitted");
-		}
+		ContactManagerUtils.checkParamsNotNull(date, attendees);
 		this.id = id;
 		this.date = date;
 		this.attendees = attendees;

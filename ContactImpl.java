@@ -20,9 +20,7 @@ public class ContactImpl implements Contact, Serializable {
 		if (id <= 0) {
 			throw new IllegalArgumentException("ID must be positive and non-zero");
 		}
-		if (name.equals(null) || notes.equals(null)) {
-			throw new NullPointerException("Null parameters not permitted");
-		}
+		ContactManagerUtils.checkParamsNotNull(name, notes);
 		this.id = id;
 		this.name = name;
 		this.notes = notes;
@@ -41,9 +39,7 @@ public class ContactImpl implements Contact, Serializable {
 		if (id <= 0) {
 			throw new IllegalArgumentException("ID must be positive and non-zero");
 		}
-		if (name.equals(null)) {
-			throw new NullPointerException("Null parameters not permitted");
-		}
+		ContactManagerUtils.checkParamsNotNull(name);
 		this.id = id;
 		this.name = name;
 		this.notes = "";

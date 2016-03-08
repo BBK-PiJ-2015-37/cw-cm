@@ -47,9 +47,7 @@ public class ContactManagerImpl implements ContactManager {
 	 * @see ContactManager
 	 */
 	public int addFutureMeeting(Set<Contact> contacts, Calendar date) {
-		if (contacts.equals(null) || date.equals(null)) {
-			throw new NullPointerException("Null parameters not permitted");
-		}
+		ContactManagerUtils.checkParamsNotNull(contacts, date);
 		if (contacts.size() == 0) {
 			throw new IllegalArgumentException("At least one attendee required");
 		}
@@ -106,9 +104,7 @@ public class ContactManagerImpl implements ContactManager {
 	 * @see ContactManager
 	 */
 	public List<Meeting> getFutureMeetingList(Contact contact) {
-		if (contact.equals(null)) {
-			throw new NullPointerException("Null parameters not permitted");
-		}
+		ContactManagerUtils.checkParamsNotNull(contact);
 		if (!(contactList.contains(contact))) {
 			throw new IllegalArgumentException("No such contact known");
 		}
@@ -131,9 +127,7 @@ public class ContactManagerImpl implements ContactManager {
 	 * @see ContactManager
 	 */
 	public List<Meeting> getMeetingListOn(Calendar date) {
-		if (date.equals(null)) {
-			throw new NullPointerException("Null parameters not permitted");
-		}
+		ContactManagerUtils.checkParamsNotNull(date);
 		List<Meeting> out = new ArrayList<>();
 		for (Meeting m : meetingList) {
 			Calendar meetingDate = m.getDate();
@@ -153,9 +147,7 @@ public class ContactManagerImpl implements ContactManager {
 	 * @see ContactManager
 	 */
 	public List<PastMeeting> getPastMeetingListFor(Contact contact) {
-		if (contact.equals(null)) {
-			throw new NullPointerException("Null parameters not permitted");
-		}
+		ContactManagerUtils.checkParamsNotNull(contact);
 		if (!(contactList.contains(contact))) {
 			throw new IllegalArgumentException("No such contact known");
 		}
@@ -179,9 +171,7 @@ public class ContactManagerImpl implements ContactManager {
 	 * @see ContactManager
 	 */
 	public void addNewPastMeeting(Set<Contact> contacts, Calendar date, String text) {
-		if (contacts.equals(null) || date.equals(null)) {
-			throw new NullPointerException("Null parameters not permitted");
-		}
+		ContactManagerUtils.checkParamsNotNull(contacts, date);
 		if (contacts.size() == 0) {
 			throw new IllegalArgumentException("At least one attendee required");
 		}
@@ -201,9 +191,7 @@ public class ContactManagerImpl implements ContactManager {
 	 * @see ContactManager
 	 */
 	public PastMeeting addMeetingNotes(int id, String text) {
-		if (text.equals(null)) {
-			throw new NullPointerException("Null parameters not permitted");
-		}
+		ContactManagerUtils.checkParamsNotNull(text);
 		if ((id < 1 || id > meetingList.size())) {
 			throw new IllegalArgumentException("No meeting with that id found");
 		}
@@ -229,9 +217,7 @@ public class ContactManagerImpl implements ContactManager {
 	 * @see ContactManager
 	 */
 	public int addNewContact(String name, String notes) {
-		if (name.equals(null) || notes.equals(null)) {
-			throw new NullPointerException("Null parameters not permitted");
-		}
+		ContactManagerUtils.checkParamsNotNull(name, notes);
 		if (name.equals("") || notes.equals("")) {
 			throw new IllegalArgumentException("Empty strings not permitted");
 		}
@@ -246,9 +232,7 @@ public class ContactManagerImpl implements ContactManager {
 	 * @see ContactManager
 	 */
 	public Set<Contact> getContacts(String name) {
-		if (name.equals(null)) {
-			throw new NullPointerException("Null parameters not permitted");
-		}
+		ContactManagerUtils.checkParamsNotNull(name);
 		if (name.equals("")) {
 			return this.contactList;
 		} else {

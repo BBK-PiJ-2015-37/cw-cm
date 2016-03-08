@@ -19,9 +19,7 @@ public class PastMeetingImpl extends MeetingImpl implements PastMeeting {
 	 */
 	public PastMeetingImpl(int id, Calendar date, Set<Contact> attendees, String notes) {
 		super(id, date, attendees);
-		if (notes.equals(null)) {
-			throw new NullPointerException("Null parameters not permitted");
-		}
+		ContactManagerUtils.checkParamsNotNull(notes);
 		this.notes = notes;
 	}
 	
