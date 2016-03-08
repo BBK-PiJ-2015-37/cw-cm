@@ -19,9 +19,7 @@ public abstract class MeetingImpl implements Meeting, Serializable {
 	 * @throws NullPointerException if date or set of attendees is null
 	 */
 	public MeetingImpl(int id, Calendar date, Set<Contact> attendees) {
-		if (id <= 0) {
-			throw new IllegalArgumentException("ID must be positive and non-zero");
-		}
+		ContactManagerUtils.checkIdAboveZero(id);
 		if (attendees.isEmpty()) {
 			throw new IllegalArgumentException("List of attendees cannot be empty");
 		}

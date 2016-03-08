@@ -17,9 +17,7 @@ public class ContactImpl implements Contact, Serializable {
 	 * @throws NullPointerException if name or notes is null
 	 */
 	public ContactImpl(int id, String name, String notes) {
-		if (id <= 0) {
-			throw new IllegalArgumentException("ID must be positive and non-zero");
-		}
+		ContactManagerUtils.checkIdAboveZero(id);
 		ContactManagerUtils.checkParamsNotNull(name, notes);
 		this.id = id;
 		this.name = name;
@@ -36,9 +34,7 @@ public class ContactImpl implements Contact, Serializable {
 	 * @throws NullPointerException if name is null
 	 */
 	public ContactImpl(int id, String name) {
-		if (id <= 0) {
-			throw new IllegalArgumentException("ID must be positive and non-zero");
-		}
+		ContactManagerUtils.checkIdAboveZero(id);
 		ContactManagerUtils.checkParamsNotNull(name);
 		this.id = id;
 		this.name = name;
