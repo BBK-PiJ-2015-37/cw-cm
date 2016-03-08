@@ -21,4 +21,16 @@ public class ContactManagerUtils {
 			}
 		}
 	}
+	
+	/*
+	 * A static method that takes an id and checks that it is positive
+	 * and non-zero. Throws an IllegalArgumentException if not.
+	 *
+	 * @param id the id number to check
+	 */
+	public static void checkIdAboveZero(int id) {
+		if (id <= 0) {
+			throw new IllegalArgumentException("ID must be positive and non-zero");
+		}
+	}
 }
