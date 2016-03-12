@@ -49,7 +49,7 @@ public class ContactManagerGetListMethodTests {
 	@Test
 	public void testsGetMeetingListOnWithDateWithMultipleMeetings() {
 		List<Meeting> output = cm.getMeetingListOn(new GregorianCalendar(2015, 5, 12));
-		assertEquals(2, output.size());
+		assertEquals(3, output.size());
 	}
 	
 	@Test (expected = NullPointerException.class)
@@ -76,7 +76,7 @@ public class ContactManagerGetListMethodTests {
 		Object[] contacts = cm.getContacts(7).toArray();
 		Contact contactToUse = (Contact) contacts[0];
 		List<Meeting> output = cm.getFutureMeetingList(contactToUse);
-		assertTrue(output.get(0).getDate().before(output.get(1).getDate()));
+		assertTrue(output.get(1).getDate().before(output.get(2).getDate()));
 	}
 	
 	@Test (expected = NullPointerException.class)
