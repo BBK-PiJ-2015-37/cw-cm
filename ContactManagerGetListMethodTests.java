@@ -47,12 +47,6 @@ public class ContactManagerGetListMethodTests {
 	}
 	
 	@Test
-	public void testsGetMeetingListOnWithDateWithDuplicateMeetings() {
-		List<Meeting> output = cm.getMeetingListOn(new GregorianCalendar(2017, 11, 20));
-		assertEquals(1, output.size());
-	}
-	
-	@Test
 	public void testsGetMeetingListOnWithDateWithMultipleMeetings() {
 		List<Meeting> output = cm.getMeetingListOn(new GregorianCalendar(2015, 5, 12));
 		assertEquals(2, output.size());
@@ -75,14 +69,6 @@ public class ContactManagerGetListMethodTests {
 		Contact contactToUse = (Contact) contacts[0];
 		List<Meeting> output = cm.getFutureMeetingList(contactToUse);
 		assertTrue(output.size() == 0);
-	}
-	
-	@Test
-	public void testsGetFutureMeetingListReturnsNoDuplicates() {
-		Object[] contacts = cm.getContacts(7).toArray();
-		Contact contactToUse = (Contact) contacts[0];
-		List<Meeting> output = cm.getFutureMeetingList(contactToUse);
-		assertTrue(output.size() == 2);
 	}
 	
 	@Test
@@ -110,14 +96,6 @@ public class ContactManagerGetListMethodTests {
 		Contact contactToUse = (Contact) contacts[0];
 		List<PastMeeting> output = cm.getPastMeetingListFor(contactToUse);
 		assertTrue(output.size() == 0);
-	}
-	
-	@Test
-	public void testsGetPastMeetingListForReturnsNoDuplicates() {
-		Object[] contacts = cm.getContacts(2).toArray();
-		Contact contactToUse = (Contact) contacts[0];
-		List<PastMeeting> output = cm.getPastMeetingListFor(contactToUse);
-		assertTrue(output.size() == 3);
 	}
 	
 	@Test
