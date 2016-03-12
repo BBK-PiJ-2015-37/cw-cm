@@ -318,8 +318,8 @@ public class ContactManagerImpl implements ContactManager {
 	
 	/*
 	 * A method that removes duplicates from a list by creating a ListIterator
-	 * that compares the dates and contact sets of two meetings at a time and
-	 * removes duplicates as it finds them.
+	 * that compares the IDs of two meetings at a time and removes duplicates as
+	 * it finds them.
 	 *
 	 * @param list the list from which duplicates will be removed
 	 */
@@ -328,14 +328,9 @@ public class ContactManagerImpl implements ContactManager {
 			ListIterator<? extends Meeting> iterator = list.listIterator(i + 1);
 			while (iterator.hasNext()) {
 				Meeting m = iterator.next();
-				Set<Contact> contacts1 = list.get(i).getContacts();
-				Calendar date1 = list.get(i).getDate();
-				Set<Contact> contacts2 = m.getContacts();
-				Calendar date2 = m.getDate();
-				if ((date1.get(Calendar.YEAR) == date2.get(Calendar.YEAR))
-					&& (date1.get(Calendar.MONTH) == date2.get(Calendar.MONTH))
-						&& (date1.get(Calendar.DAY_OF_MONTH) == date2.get(Calendar.DAY_OF_MONTH))
-							&& contacts1.size() == contacts2.size() && contacts1.containsAll(contacts2)) {
+				int id1 = list.get(i).getId();
+				int id2 = m.getId();
+				if (id1 == id2) {
 					iterator.remove();			
 				}
 			}
