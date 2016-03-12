@@ -22,6 +22,14 @@ public class ContactManagerImpl implements ContactManager {
 	private Calendar currentDate;
 	private final String FILENAME = "contacts.txt";
 	
+	/*
+	 * Constructs a ContactManagerImpl instance with a list of contacts and
+	 * a list of meetings. If a contacts.txt file is found in the same location
+	 * as the code, the contacts and meetings lists will be populated with
+	 * contacts and meetings read from this file. If no such file is found, empty
+	 * contacts and meeting lists are created. This constructor also stores the
+	 * current date, used to validate creation of past and future meetings.
+	 */
 	public ContactManagerImpl() {
 		File storageFile = new File("." + File.separator + FILENAME);
 		if (storageFile.exists()) {
