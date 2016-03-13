@@ -2,6 +2,12 @@ import java.util.Calendar;
 import java.util.Set;
 import java.io.Serializable;
 
+/**
+ * An implementation of the Meeting interface
+ *
+ * @author Sam Jansen
+ */
+
 public abstract class MeetingImpl implements Meeting, Serializable {
 	private int id;
 	private Calendar date;

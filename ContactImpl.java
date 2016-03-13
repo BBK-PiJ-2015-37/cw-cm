@@ -1,5 +1,11 @@
 import java.io.Serializable;
 
+/**
+ * An implementation of the Contact interface
+ *
+ * @author Sam Jansen
+ */
+
 public class ContactImpl implements Contact, Serializable {
 	private int id;
 	private String name;

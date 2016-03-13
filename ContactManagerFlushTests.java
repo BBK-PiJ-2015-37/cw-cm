@@ -7,6 +7,12 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+/**
+ * A set of tests for the flush() method in the ContactManagerImpl class
+ *
+ * @author Sam Jansen
+ */
+
 public class ContactManagerFlushTests {
 	private ContactManager cm;
 	

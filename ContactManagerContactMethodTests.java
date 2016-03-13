@@ -5,7 +5,17 @@ import org.junit.Before;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class ContactManagerTests {
+/**
+ * A set of tests for the following methods in the ContactManagerImpl class:
+ *
+ * - addNewContact();
+ * - getContacts(String name);
+ * - getContacts(int... ids);
+ *
+ * @author Sam Jansen
+ */
+
+public class ContactManagerContactMethodTests {
 	ContactManager cm;
 	
 	@Before

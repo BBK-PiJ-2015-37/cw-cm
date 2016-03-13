@@ -7,6 +7,12 @@ import org.junit.Before;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * A set of tests for the MeetingImpl class
+ *
+ * @author Sam Jansen
+ */
+
 public class MeetingTests {
 	private Meeting m1;
 	private Set<Contact> attendees;

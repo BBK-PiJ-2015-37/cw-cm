@@ -6,6 +6,16 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+/**
+ * A set of tests for the following methods in the ContactManagerImpl class:
+ *
+ * - getMeetingListOn();
+ * - getFutureMeetingList();
+ * - getPastMeetingListFor();
+ *
+ * @author Sam Jansen
+ */
+
 public class ContactManagerGetListMethodTests {
 	private ContactManager cm;
 	

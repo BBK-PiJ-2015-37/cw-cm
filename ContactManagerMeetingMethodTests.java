@@ -9,6 +9,19 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertNull;
 
+/**
+ * A set of tests for the following methods in the ContactManagerImpl class:
+ *
+ * - addFutureMeeting();
+ * - addNewPastMeeting();
+ * - getMeeting();
+ * - getFutureMeeting();
+ * - getPastMeeting();
+ * - addMeetingNotes();
+ *
+ * @author Sam Jansen
+ */
+
 public class ContactManagerMeetingMethodTests {
 	ContactManager cm;
 	Calendar date;

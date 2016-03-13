@@ -1,6 +1,12 @@
 import java.util.Calendar;
 import java.util.Set;
 
+/**
+ * An implementation of the PastMeeting interface
+ *
+ * @author Sam Jansen
+ */
+
 public class PastMeetingImpl extends MeetingImpl implements PastMeeting {
 	private String notes;
 	

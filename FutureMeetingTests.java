@@ -5,6 +5,12 @@ import java.util.Set;
 import org.junit.Test;
 import org.junit.Before;
 
+/**
+ * A set of tests for the FutureMeetingImpl class
+ *
+ * @author Sam Jansen
+ */
+
 public class FutureMeetingTests {
 	private Meeting m1;
 	private Set<Contact> attendees;

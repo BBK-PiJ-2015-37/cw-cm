@@ -16,6 +16,12 @@ import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+/**
+ * An implementation of the ContactManager interface
+ *
+ * @author Sam Jansen
+ */
+
 public class ContactManagerImpl implements ContactManager {
 	private Set<Contact> contactList;
 	private List<Meeting> meetingList;
