@@ -62,12 +62,7 @@ public class ContactManagerImpl implements ContactManager {
 	 */
 	public int addFutureMeeting(Set<Contact> contacts, Calendar date) {
 		ContactManagerUtils.checkParamsNotNull(contacts, date);
-		if (contacts.size() == 0) {
-			throw new IllegalArgumentException("At least one attendee required");
-		}
-		if (!allContactsValid(contacts)) {
-			throw new IllegalArgumentException("At least one attendee is unknown");
-		}
+		validateContacts(contacts);
 		if (date.before(currentDate)) {
 			throw new IllegalArgumentException("Date provided is in the past");
 		}
@@ -186,12 +181,7 @@ public class ContactManagerImpl implements ContactManager {
 	 */
 	public void addNewPastMeeting(Set<Contact> contacts, Calendar date, String text) {
 		ContactManagerUtils.checkParamsNotNull(contacts, date);
-		if (contacts.size() == 0) {
-			throw new IllegalArgumentException("At least one attendee required");
-		}
-		if (!allContactsValid(contacts)) {
-			throw new IllegalArgumentException("At least one attendee is unknown");
-		}
+		validateContacts(contacts);
 		if (date.after(currentDate)) {
 			throw new IllegalArgumentException("Date provided is in the future");
 		}
@@ -348,6 +338,24 @@ public class ContactManagerImpl implements ContactManager {
 					iterator.remove();			
 				}
 			}
+		}
+	}
+	
+	/*
+	 * Method that validates the set of contacts passed as a parameter when adding
+	 * new meetings. It checks that there is at least one contact in the set and that
+	 * all of the contacts in the set are in the ContactManager's list of known contacts.
+	 *
+	 * @param contacts list of contacts
+	 * @throws IllegalArgumentException if there are no contacts in the set or if one of more
+	 * of the contacts is unknown
+	 */
+	private void validateContacts(Set<Contact> contacts) {
+		if (contacts.size() == 0) {
+			throw new IllegalArgumentException("At least one attendee required");
+		}
+		if (!allContactsValid(contacts)) {
+			throw new IllegalArgumentException("At least one attendee is unknown");
 		}
 	}
 	
