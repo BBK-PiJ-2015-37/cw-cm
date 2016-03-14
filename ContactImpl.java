@@ -14,37 +14,16 @@ public class ContactImpl implements Contact, Serializable {
 	
 	/**
 	 * Constructs contact with id, name and notes.
-	 *
-	 * @param id Contact's ID number
-	 * @param name Contact's name
-	 * @param notes Notes about contact
-	 *
-	 * @throws IllegalArgumentException if id is negative or zero
-	 * @throws NullPointerException if name or notes is null
 	 */
 	public ContactImpl(int id, String name, String notes) {
-		ContactManagerUtils.checkIdAboveZero(id);
-		ContactManagerUtils.checkParamsNotNull(name, notes);
-		this.id = id;
-		this.name = name;
-		this.notes = notes;
+		constructNewContact(id, name, notes);
 	}
 	
 	/**
 	 * Constructs contact with id and name, setting notes to empty string.
-	 *
-	 * @param id Contact's ID number
-	 * @param name Contact's name
-	 *
-	 * @throws IllegalArgumentException if id is negative or zero
-	 * @throws NullPointerException if name is null
 	 */
 	public ContactImpl(int id, String name) {
-		ContactManagerUtils.checkIdAboveZero(id);
-		ContactManagerUtils.checkParamsNotNull(name);
-		this.id = id;
-		this.name = name;
-		this.notes = "";
+		constructNewContact(id, name, "");
 	}
 	
 	@Override
@@ -81,5 +60,24 @@ public class ContactImpl implements Contact, Serializable {
 		} else {
 			this.notes = this.notes.concat("\n" + note);
 		}
+	}
+	
+	/**
+	 * Method acting as a general constructor for Contact, used to reduce
+	 * repetition in official Contact constructors.
+	 *
+	 * @param id Contact's ID number
+	 * @param name Contact's name
+	 * @param notes Notes about contact
+	 *
+	 * @throws IllegalArgumentException if id is negative or zero
+	 * @throws NullPointerException if name or notes is null
+	 */
+	private void constructNewContact(int id, String name, String notes) {
+		ContactManagerUtils.checkIdAboveZero(id);
+		ContactManagerUtils.checkParamsNotNull(name, notes);
+		this.id = id;
+		this.name = name;
+		this.notes = notes;
 	}
 }
